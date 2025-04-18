@@ -1,5 +1,5 @@
 <template>
-  <router-view />
+  <div>Category</div>
 </template>
 
 <script lang="ts" setup>
