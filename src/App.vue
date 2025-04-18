@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <el-button type="success">Success</el-button>
 </template>
 
 <script lang="ts" setup>
