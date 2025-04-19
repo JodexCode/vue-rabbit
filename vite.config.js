@@ -34,7 +34,10 @@ export default defineConfig({
       scss: {
         //自动导入定制化样式文件进行样式覆盖
         //注意：如果使用了elementPlus，需要在main.js中引入elementPlus的定制化样式文件，否则会导致elementPlus的样式覆盖失效
-        additionalData: `@use "@/styles/element/index.scss" as *;`
+        additionalData: `
+        @use "@/styles/element/index.scss" as *;
+        @use "@/styles/var.scss" as *;
+        `
       }
     }
   }
