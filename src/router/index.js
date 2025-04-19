@@ -4,8 +4,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import Layout from '@/views/Layout/index.vue'
 import Login from '@/views/Login/index.vue'
-import Home from '@/views/Layout/Home/index.vue'
-import Category from '@/views/Layout/Category/index.vue'
+import Home from '@/views/Layout/routes/Home/index.vue'
+import Category from '@/views/Layout/routes/Category/index.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
