@@ -39,6 +39,18 @@ const rules = {
     }
   ]
 }
+
+const formRef = ref(null)
+const doLogin = () => {
+  formRef.value.validate((valid) => {
+    if (valid) {
+      console.log('submit!')
+    } else {
+      console.log('error submit!!')
+      return false
+    }
+  })
+}
 </script>
 
 <template>
@@ -65,6 +77,7 @@ const rules = {
         <div class="account-box">
           <div class="form">
             <el-form
+              ref="formRef"
               :model="form"
               :rules="rules"
               label-position="right"
@@ -85,7 +98,7 @@ const rules = {
                 </el-checkbox>
               </el-form-item>
 
-              <el-button size="large" class="subBtn">点击登录</el-button>
+              <el-button size="large" class="subBtn" @click="doLogin">点击登录</el-button>
             </el-form>
           </div>
         </div>
