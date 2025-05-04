@@ -3,7 +3,8 @@ import { ref } from 'vue'
 // 表单校验(账号+密码)
 const form = ref({
   account: '',
-  password: ''
+  password: '',
+  agree: false
 })
 const rules = {
   account: [
@@ -25,6 +26,17 @@ const rules = {
       message: '密码长度为6-14位',
       trigger: 'blur'
     }
+  ],
+  agree: [
+    {
+      validator: (rule, value, callback) => {
+        if (value) {
+          callback()
+        } else {
+          callback(new Error('请勾选协议'))
+        }
+      }
+    }
   ]
 }
 </script>
@@ -36,11 +48,9 @@ const rules = {
         <h1 class="logo">
           <RouterLink to="/">小兔鲜</RouterLink>
         </h1>
-
         <RouterLink class="entry" to="/">
           进入网站首页
           <i class="iconfont icon-angle-right"></i>
-
           <i class="iconfont icon-angle-right"></i>
         </RouterLink>
       </div>
@@ -69,8 +79,10 @@ const rules = {
                 <el-input v-model="form.password" />
               </el-form-item>
 
-              <el-form-item label-width="22px">
-                <el-checkbox size="large"> 我已同意隐私条款和服务条款 </el-checkbox>
+              <el-form-item prop="agree" label-width="22px">
+                <el-checkbox size="large" v-model="form.agree">
+                  我已同意隐私条款和服务条款
+                </el-checkbox>
               </el-form-item>
 
               <el-button size="large" class="subBtn">点击登录</el-button>
@@ -84,20 +96,13 @@ const rules = {
       <div class="container">
         <p>
           <a href="javascript:;">关于我们</a>
-
           <a href="javascript:;">帮助中心</a>
-
           <a href="javascript:;">售后服务</a>
-
           <a href="javascript:;">配送与验收</a>
-
           <a href="javascript:;">商务合作</a>
-
           <a href="javascript:;">搜索推荐</a>
-
           <a href="javascript:;">友情链接</a>
         </p>
-
         <p>CopyRight &copy; 小兔鲜儿</p>
       </div>
     </footer>
