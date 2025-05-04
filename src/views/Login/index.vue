@@ -1,5 +1,9 @@
 <script setup>
 import { ref } from 'vue'
+import { getLoginAPI } from '@/apis/user.js'
+import { ElMessage } from 'element-plus'
+import 'element-plus/theme-chalk/el-message.css'
+import { useRouter } from 'vue-router'
 // 表单校验(账号+密码)
 const form = ref({
   account: '',
@@ -39,12 +43,15 @@ const rules = {
     }
   ]
 }
-
+const router = useRouter()
 const formRef = ref(null)
 const doLogin = () => {
-  formRef.value.validate((valid) => {
+  const { account, password } = form.value
+  formRef.value.validate(async (valid) => {
     if (valid) {
-      console.log('submit!')
+      const res = await getLoginAPI({ account, password })
+      ElMessage({ type: 'success', message: '登录成功' })
+      router.replace({ path: '/' })
     } else {
       console.log('error submit!!')
       return false
