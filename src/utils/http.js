@@ -2,7 +2,7 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
 import { useUserStore } from '@/stores/user'
-
+import router from '@/router/index'
 const httpInstance = axios.create({
   baseURL: 'https://pcapi-xiaotuxian-front-devtest.itheima.net/',
   timeout: 5000
@@ -29,10 +29,17 @@ httpInstance.interceptors.request.use(
 httpInstance.interceptors.response.use(
   (res) => res.data,
   (err) => {
+    const userStore = useUserStore()
+
     ElMessage({
       type: 'warning',
-      message: err.response.data.message || '网络异常'
+      message: err.response.data?.message || '网络异常'
     })
+    // 401错误处理
+    if (err.response.status === 401) {
+      userStore.clearUserInfo()
+      router.push('/login')
+    }
     return Promise.reject(err)
   }
 )
