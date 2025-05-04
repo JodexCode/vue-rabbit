@@ -10,7 +10,7 @@ const userStore = useUserStore()
         <template v-if="userStore.userInfo.token">
           <li>
             <a href="javascript:;"
-              ><i class="iconfont icon-user"></i>{{ userStore.userInfo.account }}</a
+              ><i class="iconfont icon-user"></i>{{ userStore.userInfo.account || '杰' }}</a
             >
           </li>
           <li>
