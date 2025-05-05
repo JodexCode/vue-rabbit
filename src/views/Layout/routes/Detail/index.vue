@@ -19,13 +19,18 @@ onMounted(() => {
 })
 let skuObj = {}
 const skuChange = (sku) => {
-  console.log(sku)
   skuObj = sku
 }
 
 const count = ref(1)
-const countChange = (count) => {
-  console.log(count)
+const countChange = (newCount) => {
+  if (newCount < 1) {
+    count.value = 1
+    ElMessage({
+      type: 'warning',
+      message: '商品数量不能小于1'
+    })
+  }
 }
 
 const addCart = () => {
@@ -124,7 +129,7 @@ const addCart = () => {
               <!-- sku组件 -->
               <xtx-sku :goods="goods" @change="skuChange" />
               <!-- 数据组件 -->
-              <el-input-number v-model="count" @change="countChange"></el-input-number>
+              <el-input-number v-model="count" @change="countChange" :min="1"></el-input-number>
               <!-- 按钮组件 -->
               <div>
                 <el-button size="large" class="btn" @click="addCart"> 加入购物车 </el-button>
