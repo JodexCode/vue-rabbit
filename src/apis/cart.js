@@ -29,3 +29,12 @@ export function delCartAPI(ids) {
     }
   })
 }
+
+// 合并购物车
+export function mergeCartAPI(cartList) {
+  return httpInstance({
+    url: '/member/cart/merge',
+    method: 'POST',
+    data: cartList
+  })
+}
