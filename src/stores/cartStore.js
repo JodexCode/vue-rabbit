@@ -1,8 +1,8 @@
 // 封装购物车模块
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
-import { useUserStore } from './user'
-import { insertCartAPI, findNewCartListAPI } from '@/apis/cart'
+import { useUserStore } from './userStore'
+import { insertCartAPI, findNewCartListAPI, delCartAPI } from '@/apis/cart'
 
 export const useCartStore = defineStore(
   'cart',
@@ -16,8 +16,7 @@ export const useCartStore = defineStore(
       const { skuId, count } = goods
       if (isLogin.value) {
         await insertCartAPI({ skuId, count })
-        const res = await findNewCartListAPI()
-        cartList.value = res.result
+        updateNewList()
       } else {
         const item = cartList.value.find((item) => goods.skuId === item.skuId)
         if (item) {
@@ -29,11 +28,22 @@ export const useCartStore = defineStore(
     }
 
     // 删除购物车
-    const delCart = (skuId) => {
-      const idx = cartList.value.findIndex((item) => item.skuId === skuId)
-      cartList.value.splice(idx, 1)
+    const delCart = async (skuId) => {
+      if (isLogin.value) {
+        await delCartAPI([skuId])
+        updateNewList()
+      } else {
+        const idx = cartList.value.findIndex((item) => item.skuId === skuId)
+        cartList.value.splice(idx, 1)
+      }
+    }
+    // 获取新的购物车列表
+    const updateNewList = async () => {
+      const res = await findNewCartListAPI()
+      cartList.value = res.result
     }
 
+    // 单选
     const singleCheck = (skuId, selected) => {
       const item = cartList.value.find((item) => item.skuId === skuId)
       item.selected = selected
@@ -42,7 +52,7 @@ export const useCartStore = defineStore(
     const allCount = computed(() => cartList.value.reduce((a, c) => a + c.count, 0))
     const allPrice = computed(() => cartList.value.reduce((a, c) => a + c.count * c.price, 0))
 
-    // 单选和全选
+    // 全选
     const isAll = computed(() => cartList.value.every((item) => item.selected))
     const allCheck = (selected) => {
       cartList.value.forEach((item) => (item.selected = selected))

@@ -12,8 +12,20 @@ export function insertCartAPI({ skuId, count }) {
     }
   })
 }
+
 export function findNewCartListAPI() {
   return httpInstance({
     url: '/member/cart'
+  })
+}
+
+// 删除购物车
+export function delCartAPI(ids) {
+  return httpInstance({
+    url: '/member/cart',
+    method: 'DELETE',
+    data: {
+      ids
+    }
   })
 }
