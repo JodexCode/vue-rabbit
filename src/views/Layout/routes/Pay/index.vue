@@ -20,8 +20,8 @@ onMounted(() => {
 // 支付地址
 const baseURL = 'http://pcapi-xiaotuxian-front-devtest.itheima.net/'
 const backURL = import.meta.env.PROD
-  ? 'https://jodexcode.github.io/vue-rabbit/paycallback'
-  : 'http://localhost:5173/paycallback'
+  ? 'https://jodexcode.github.io/vue-rabbit/#/paycallback'
+  : 'http://localhost:5173/#/paycallback'
 const redirectUrl = encodeURIComponent(backURL)
 const payUrl = `${baseURL}pay/aliPay?orderId=${route.query.id}&redirect=${redirectUrl}`
 </script>
