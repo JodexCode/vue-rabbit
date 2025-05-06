@@ -31,7 +31,7 @@ const confirm = () => {
               </template>
             </el-popconfirm>
           </li>
-          <li><a href="javascript:;">我的订单</a></li>
+          <li><router-link :to="{ name: 'UserOrder' }">我的订单</router-link></li>
           <li><router-link :to="{ name: 'Member' }">会员中心</router-link></li>
         </template>
         <template v-else>

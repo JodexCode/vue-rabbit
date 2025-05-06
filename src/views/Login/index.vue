@@ -8,7 +8,7 @@ import { useUserStore } from '@/stores/userStore.js'
 const userStore = useUserStore()
 // 表单校验(账号+密码)
 const form = ref({
-  account: '12056258282',
+  account: '12056258291',
   password: 'hm#qd@23!',
   agree: false
 })
